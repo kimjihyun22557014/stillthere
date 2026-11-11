@@ -1,1 +1,0 @@
-document.getElementById('reveal').addEventListener('click',()=>{document.getElementById('endingNote').classList.add('hidden');document.getElementById('endingReveal').classList.remove('hidden');localStorage.setItem('ayst-complete','true');});
