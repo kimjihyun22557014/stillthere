@@ -17,7 +17,7 @@
         meta.append(name, date);
         const question = document.createElement('h2'); question.textContent = record.question;
         const answer = document.createElement('p'); answer.className = 'record-answer'; answer.textContent = record.answer;
-        const revisit = document.createElement('a'); revisit.href = 'room01.html'; revisit.textContent = '이 방 다시 방문하기 →';
+        const revisit = document.createElement('a'); revisit.href = record.characterId==='blackrose'?'room02.html':'room01.html'; revisit.textContent = '이 방 다시 방문하기 →';
         card.append(meta, question, answer, revisit); list.appendChild(card);
       }
     } catch (_) {

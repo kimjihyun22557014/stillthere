@@ -1,4 +1,4 @@
-window.roomProgressKey = n => n === 1 ? 'ayst-room-1-cherry-v2' : 'ayst-room-'+n;
+window.roomProgressKey = n => n === 1 ? 'ayst-room-1-cherry-v2' : n === 2 ? 'ayst-room-2-blackrose-v2' : 'ayst-room-'+n;
 window.readRoomProgress = n => {try {const saved=JSON.parse(localStorage.getItem(window.roomProgressKey(n))||'[]');return new Set(Array.isArray(saved)?saved.filter(i=>Number.isInteger(i)&&i>=0&&i<3):[])}catch(_){return new Set()}};
 
 // Queue only after a completed room; corridor consumes this event once per saved game.

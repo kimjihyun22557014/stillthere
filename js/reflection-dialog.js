@@ -1,4 +1,5 @@
-window.createCherryReflection = ({ setSceneInert, returnFocus }) => {
+window.createRoomReflection = ({ roomNumber=1, setSceneInert, returnFocus }) => {
+  const config=window.ReflectionStore.configs[roomNumber];
   const modal = document.createElement('div');
   modal.className = 'reflection-modal hidden';
   modal.id = 'reflectionModal';
@@ -6,7 +7,7 @@ window.createCherryReflection = ({ setSceneInert, returnFocus }) => {
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-labelledby', 'reflectionQuestion');
   modal.innerHTML = `<section class="reflection-card">
-    <p class="reflection-caption">CHERRY DOLL · 나의 답변</p>
+    <p class="reflection-caption">${config.character.toUpperCase()} · 나의 답변</p>
     <h2 id="reflectionQuestion"></h2>
     <form id="reflectionForm">
       <label class="sr-only" for="reflectionAnswer">질문에 대한 나의 답변</label>
@@ -28,7 +29,8 @@ window.createCherryReflection = ({ setSceneInert, returnFocus }) => {
   const status = get('reflectionStatus');
   let destination = null;
   let submitting = false;
-  get('reflectionQuestion').textContent = window.ReflectionStore.question;
+  get('reflectionQuestion').textContent = config.question;
+  answer.placeholder=config.placeholder;
   function close() {
     modal.classList.add('hidden');
     setSceneInert(false);
@@ -59,7 +61,7 @@ window.createCherryReflection = ({ setSceneInert, returnFocus }) => {
     submitting = true;
     get('saveReflection').disabled = true;
     try {
-      const record = window.ReflectionStore.save(answer.value);
+      const record = window.ReflectionStore.save(answer.value,roomNumber);
       status.textContent = '저장되었습니다. · ' + window.ReflectionStore.date(record.createdAt);
       get('reflectionSavedAnswer').textContent = record.answer;
       answer.value = '';
@@ -77,7 +79,7 @@ window.createCherryReflection = ({ setSceneInert, returnFocus }) => {
   });
   get('skipReflection').addEventListener('click', close);
   get('continueReflection').addEventListener('click', close);
-  get('reflectionCorridor').addEventListener('click', () => window.queueFirstClearSubtitle(1));
+  get('reflectionCorridor').addEventListener('click', () => window.queueFirstClearSubtitle(roomNumber));
   document.addEventListener('keydown', e => {
     if (modal.classList.contains('hidden')) return;
     if (e.key === 'Escape') { e.preventDefault(); close(); }
