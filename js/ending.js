@@ -5,7 +5,16 @@
  let guest='',started=false,step=0;const wait=ms=>new Promise(resolve=>setTimeout(resolve,reduced?Math.min(ms,350):ms));
  const panels=['nameScene','mirrorScene','dialogueScene','blackScene'];
  function show(id){for(const p of panels)$(p).hidden=p!==id;}
- function vocative(name){const last=name.charCodeAt(name.length-1);if(last>=0xac00&&last<=0xd7a3)return name+((last-0xac00)%28?'아.':'야.');return name+'.';}
+ function givenName(value){
+ const parts=value.trim().split(/\s+/);if(parts.length>1&&/^[가-힣]{1,2}$/.test(parts[0]))return parts.slice(1).join('');
+ const name=parts.join(' ');if(!/^[가-힣]+$/.test(name))return name;
+ const compound=['남궁','황보','제갈','선우','독고','서문','사공','동방'];
+ if(name.length>=4&&compound.some(s=>name.startsWith(s)))return name.slice(2);
+ const surnames='김이박최정강조윤장임한오서신권황안송전홍유고문양손배백허남심노하곽성차주우구민진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용';
+ if(name.length>=3&&name.length<=5&&surnames.includes(name[0]))return name.slice(1);
+ return name;
+ }
+ function vocative(value){const name=givenName(value);const last=name.charCodeAt(name.length-1);if(last>=0xac00&&last<=0xd7a3)return name+((last-0xac00)%28?'아.':'야.');return name+'.';}
  async function intro(){show('blackScene');await wait(1800);show('nameScene');$('guestName').focus();}
  $('guestForm').addEventListener('submit',e=>{e.preventDefault();const name=$('guestName').value.trim();if(!name){$('guestName').focus();return;}guest=name;show('mirrorScene');$('approachMirror').focus();});
  const memories=['images/cherrydollroom.png','images/blackroseroom.png','images/miroroom-shoes.png','images/bubblyroom-shoes.png','images/bloom-rot-room.png','images/sageroom.png'];
