@@ -4,6 +4,7 @@ function init(){
  const room=window.ROOMS[roomNumber-1],key=window.roomProgressKey(roomNumber);
  const enhanced=[1,2,3,4,5,6].includes(roomNumber);
  const interviewData=({1:window.CHERRY_INTERVIEW,2:window.BLACKROSE_INTERVIEW,3:window.MIRO_INTERVIEW,4:window.BUBBLY_INTERVIEW,5:window.BLOOM_INTERVIEW,6:window.SAGE_INTERVIEW})[roomNumber];
+ window.readHotelStory();
  let found=window.readRoomProgress(roomNumber);
  let interviewAfterClue=false;
  let returnFocus=null;

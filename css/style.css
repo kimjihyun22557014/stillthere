@@ -169,3 +169,5 @@
 .interview-copy{padding-left:clamp(20px,4vw,42px);padding-right:clamp(20px,4vw,42px);text-align:left}
 .interview-answer h3{text-align:left}
 .interview-answer p{white-space:pre-line;line-height:1.95;text-align:left;word-break:keep-all;overflow-wrap:break-word;text-wrap:wrap}
+
+.ending-mirror{width:150px;height:195px;border:9px double #ad9276;border-radius:48% 48% 42% 42%;display:grid;place-items:center;margin:24px auto 30px;background:radial-gradient(ellipse,#b6a5b44a,#453d4d88 65%,#23212a);box-shadow:0 0 55px #d5bcc225,inset 0 0 30px #ece1da20}.ending-mirror span{font:italic 70px Georgia,serif;color:#e0c6b5aa}.ending-last-line{font-size:clamp(20px,3vw,28px);color:#f7dfbd!important;margin-top:28px}#endingReveal{animation:subtitle-appear 1.2s ease both;outline:none}.ending-scene #endingReveal h1{font-family:inherit;font-size:clamp(32px,6vw,66px);letter-spacing:-.04em}.ending-scene .tiny-link{display:block}.ending-note{max-width:600px}.ending-scene #endingReveal{max-width:720px}@media(prefers-reduced-motion:reduce){#endingReveal{animation:none}}
