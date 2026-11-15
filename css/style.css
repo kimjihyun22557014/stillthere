@@ -163,3 +163,9 @@
 /* Read complete sentences on their own lines, aligned to the left. */
 .interview-copy,.interview-answer{text-align:left}
 .interview-answer p{white-space:pre-line;word-break:keep-all;overflow-wrap:break-word;text-align:left;text-wrap:wrap}
+
+/* Roomy, left-aligned reading column; authored breaks are not auto-generated. */
+.interview-card{width:min(920px,100%)}
+.interview-copy{padding-left:clamp(20px,4vw,42px);padding-right:clamp(20px,4vw,42px);text-align:left}
+.interview-answer h3{text-align:left}
+.interview-answer p{white-space:pre-line;line-height:1.95;text-align:left;word-break:keep-all;overflow-wrap:break-word;text-wrap:wrap}
