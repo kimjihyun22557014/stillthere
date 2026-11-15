@@ -1,5 +1,12 @@
 (() => {
- 'use strict';let ctx,master,music,timer,started=false,muted=false,warm=false;
+ 'use strict';
+ if(window.parent!==window&&window.parent.HotelAudio){
+  const sound=window.parent.HotelAudio;window.HotelAudio=sound;
+  const activate=()=>sound.unlock();document.addEventListener('pointerdown',activate,{passive:true});document.addEventListener('keydown',activate);
+  let moving=false;document.addEventListener('click',e=>{const link=e.target.closest&&e.target.closest('a[href]');if(!link||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||link.target==='_blank')return;const url=new URL(link.href,location.href);if(url.origin!==location.origin||!/(room0[1-6]|corridor|ending)\.html$/.test(url.pathname))return;if(moving){e.preventDefault();return;}e.preventDefault();moving=true;sound.unlock();sound.effect('open');try{sessionStorage.setItem('ayst-door-arrival','1')}catch(_){}setTimeout(()=>location.assign(link.href),1400);});
+  try{if(sessionStorage.getItem('ayst-door-arrival')){sessionStorage.removeItem('ayst-door-arrival');sound.effect('close')}}catch(_){}return;
+ }
+let ctx,master,music,timer,started=false,muted=false,warm=false;
  try{muted=localStorage.getItem('ayst-sound-muted')==='true'}catch(_){}
  const button=document.createElement('button');button.type='button';button.className='hotel-sound-toggle';document.body.appendChild(button);
  function label(){button.textContent=muted?'소리 꺼짐':'소리 켜짐';button.setAttribute('aria-label',muted?'배경음과 효과음 켜기':'배경음과 효과음 끄기');button.setAttribute('aria-pressed',String(!muted))}label();
@@ -19,5 +26,5 @@
  document.addEventListener('pointerdown',()=>unlock(),{passive:true});document.addEventListener('keydown',()=>unlock());
  document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden)ctx.suspend();else if(!muted)ctx.resume()});window.addEventListener('pagehide',()=>{clearInterval(timer);if(ctx)ctx.close()});
  let navigating=false;document.addEventListener('click',async e=>{const a=e.target.closest&&e.target.closest('a[href]');if(!a||e.defaultPrevented||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||a.target==='_blank')return;const url=new URL(a.href,location.href);if(url.origin!==location.origin||!/(room0[1-6]|corridor|ending)\.html$/.test(url.pathname))return;if(!ctx||muted||ctx.state!=='running')return;if(navigating){e.preventDefault();return;}navigating=true;e.preventDefault();effect('open');try{sessionStorage.setItem('ayst-door-arrival','1')}catch(_){}setTimeout(()=>location.assign(a.href),1400);});
- window.HotelAudio={effect,warm:()=>{if(warm)return;warm=true;if(music){music.gain.setTargetAtTime(.65,ctx.currentTime,.9);phrase()}},fade:()=>{if(music)music.gain.setTargetAtTime(.14,ctx.currentTime,.8)}};unlock();
+ window.HotelAudio={effect,unlock,warm:()=>{if(warm)return;warm=true;if(music){music.gain.setTargetAtTime(.65,ctx.currentTime,.9);phrase()}},fade:()=>{if(music)music.gain.setTargetAtTime(.14,ctx.currentTime,.8)}};unlock();
 })();

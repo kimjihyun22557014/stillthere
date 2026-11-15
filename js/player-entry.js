@@ -1,0 +1,1 @@
+if(window.top===window.self&&location.protocol!=='file:'){const scene=location.pathname.split('/').pop()||'index.html';location.replace('player.html?scene='+encodeURIComponent(scene+location.search+location.hash));}
