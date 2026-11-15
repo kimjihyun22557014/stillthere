@@ -17,7 +17,7 @@
 (() => {
  const showNext=()=>{
   const s=window.readHotelStory();
-  if(s.order.length===6&&!s.endingSeen&&window.hotelStoryReady()){window.location.replace('ending.html');return;}
+  if(s.order.length===6&&!s.endingSeen&&window.hotelStoryReady()){document.body.classList.add('corridor-blackout');const cover=document.createElement('div');cover.className='blackout-cover';cover.setAttribute('aria-hidden','true');document.body.appendChild(cover);const calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(()=>window.location.replace('ending.html'),calm?1000:3000);return;}
   const step=s.pending[0];if(!step||step>5)return;
   const subtitle=document.createElement('div');subtitle.className='corridor-story-subtitle';subtitle.setAttribute('role','status');subtitle.setAttribute('aria-live','polite');
   const text=document.createElement('p');text.textContent=window.HOTEL_STORY_MESSAGES[step-1];subtitle.appendChild(text);
