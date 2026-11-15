@@ -28,3 +28,5 @@
 @media(prefers-reduced-motion:reduce){.wakeup-scene,.wakeup-eyelid,.wakeup-motion-veil{transition-duration:.12s!important}.wakeup-canvas.is-tilting .wakeup-scene img{animation:none}}
 
 @media(prefers-reduced-motion:reduce){.wakeup-scene img{transition-duration:.12s!important}}
+
+.wakeup-skip{right:max(20px,4vw);bottom:max(18px,env(safe-area-inset-bottom));min-height:36px;display:flex;align-items:center}
