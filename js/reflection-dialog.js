@@ -31,8 +31,8 @@ window.createRoomReflection = ({ roomNumber=1, setSceneInert, returnFocus }) => 
   let submitting = false;
   // Keep the stored question intact; group its display into readable phrases.
   const questionBreaks = {
-    2: '지금은 받아들일',
-    3: '어떻게 다른가요?',
+    2: '자신의 모습이',
+    3: '지금의 나는',
     4: '나만의 방법이',
     5: '나에게 어떤 말을',
     6: '어떤 말을 해주고'
@@ -46,7 +46,7 @@ window.createRoomReflection = ({ roomNumber=1, setSceneInert, returnFocus }) => 
     if (index) question.appendChild(document.createTextNode(' '));
     const line = document.createElement('span');
     line.className = 'reflection-question-line';
-    line.textContent = text;
+    line.textContent = Number(roomNumber) === 2 ? text.replace('있게 된', '있게된') : text;
     question.appendChild(line);
   });
   answer.placeholder=config.placeholder;
