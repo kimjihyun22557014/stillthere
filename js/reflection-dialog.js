@@ -31,15 +31,14 @@ window.createRoomReflection = ({ roomNumber=1, setSceneInert, returnFocus }) => 
   let submitting = false;
   // Keep the stored question intact; group its display into readable phrases.
   const questionBreaks = {
-    1: '골랐던 물건이',
     2: '지금은 받아들일',
-    3: '지금의 나는',
-    4: '일상으로 돌아오게',
+    3: '어떻게 다른가요?',
+    4: '나만의 방법이',
     5: '나에게 어떤 말을',
     6: '어떤 말을 해주고'
   };
   const question = get('reflectionQuestion');
-  const breakAt = config.question.indexOf(questionBreaks[roomNumber]);
+  const breakAt = questionBreaks[roomNumber] ? config.question.indexOf(questionBreaks[roomNumber]) : -1;
   const lines = breakAt > 0
     ? [config.question.slice(0, breakAt).trimEnd(), config.question.slice(breakAt)]
     : [config.question];
