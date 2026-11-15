@@ -29,7 +29,27 @@ window.createRoomReflection = ({ roomNumber=1, setSceneInert, returnFocus }) => 
   const status = get('reflectionStatus');
   let destination = null;
   let submitting = false;
-  get('reflectionQuestion').textContent = config.question;
+  // Keep the stored question intact; group its display into readable phrases.
+  const questionBreaks = {
+    1: '골랐던 물건이',
+    2: '지금은 받아들일',
+    3: '지금의 나는',
+    4: '일상으로 돌아오게',
+    5: '나에게 어떤 말을',
+    6: '어떤 말을 해주고'
+  };
+  const question = get('reflectionQuestion');
+  const breakAt = config.question.indexOf(questionBreaks[roomNumber]);
+  const lines = breakAt > 0
+    ? [config.question.slice(0, breakAt).trimEnd(), config.question.slice(breakAt)]
+    : [config.question];
+  lines.forEach((text, index) => {
+    if (index) question.appendChild(document.createTextNode(' '));
+    const line = document.createElement('span');
+    line.className = 'reflection-question-line';
+    line.textContent = text;
+    question.appendChild(line);
+  });
   answer.placeholder=config.placeholder;
   function close() {
     modal.classList.add('hidden');
