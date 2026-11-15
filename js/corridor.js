@@ -6,7 +6,7 @@ async function startHotelBlackout(){
  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));await wait(900);
  const calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const sequence=calm?[[1,900]]:[[.92,220],[0,430],[.8,170],[0,550],[.96,280],[.1,300],[1,1100]];
- for(const [opacity,duration] of sequence){cover.style.opacity=String(opacity);await wait(duration);}
+ for(const [opacity,duration] of sequence){cover.style.opacity=String(opacity);if(opacity>.7)window.HotelAudio?.effect('flicker');await wait(duration);}
  window.location.replace('ending.html');
 }
 (() => {
